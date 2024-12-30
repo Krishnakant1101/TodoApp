@@ -1,0 +1,22 @@
+html, body {
+    height: 100%; /* Allow full height for viewport-based classes */
+}
+
+
+  
+
+.task-item {
+    transition: all 0.2s ease;
+}
+
+.droppable {
+    min-height: 200px;
+    padding: 10px;
+    border: 1px dashed #ddd;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.bg-light-blue {
+    background-color: #cce7ff; /* Light blue color for hover effect */
+}

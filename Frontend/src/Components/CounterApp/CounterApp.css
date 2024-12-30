@@ -1,0 +1,9 @@
+#parentDiv{
+    padding-left: auto;
+    padding-right: auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: rgb(107, 107, 82);
+    display: flex;
+   justify-content: center;
+}

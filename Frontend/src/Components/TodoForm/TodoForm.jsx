@@ -20,7 +20,7 @@ const TodoForm = ({ setOpen, onTaskCreated }) => {
     };
 
     try {
-      const response = await fetch("http://localhost:1100/api/tasks", {
+      const response = await fetch("http://localhost:1100/api/addTodoData", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

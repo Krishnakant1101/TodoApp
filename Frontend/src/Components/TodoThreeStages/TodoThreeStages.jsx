@@ -86,10 +86,13 @@ function TodoThreeStages() {
   const fetchTasks = async () => {
     setLoading(true);
     try {
-        const response = await fetch("http://localhost:1100/api/tasks");
+        const response = await fetch("http://localhost:1100/api/getAllTodoData");
         if (!response.ok) throw new Error("Unable to fetch tasks. Please try again.");
         const data = await response.json();
-        setTasks(data);
+        setTasks(data.firebaseResponse.todoData.map((value)=>{
+          return value;
+        }));
+        console.log("todoData:",tasks)
     } catch (err) {
         setError(err.message); // Set a user-readable error message
     } finally {
@@ -103,10 +106,10 @@ function TodoThreeStages() {
   };
   const handleDrop = (id, newStage) => {
   
-    fetch(`http://localhost:1100/api/tasks/${id}`, {
+    fetch(`http://localhost:1100/api/updateTodoStage`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ stage: newStage }), 
+      body: JSON.stringify({ id:id,stage: newStage }), 
     })
       .then((res) => {
         if (!res.ok) {
@@ -134,7 +137,10 @@ function TodoThreeStages() {
   
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:1100/api/tasks/${id}`, { method: "DELETE" })
+    fetch(`http://localhost:1100/api/deleteTodoData`, { method: "DELETE" ,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id:id }), 
+    })
       .then((res) => {
         if (!res.ok) throw new Error("Failed to delete task");
         setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
@@ -148,7 +154,7 @@ function TodoThreeStages() {
 
   const handleSaveEdit = (editedTask) => {
     console.log(editedTask)
-    fetch(`http://localhost:1100/api/tasks`, {
+    fetch(`http://localhost:1100/api/updateTodoData`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(editedTask),
